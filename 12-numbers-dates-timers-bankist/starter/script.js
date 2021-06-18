@@ -272,14 +272,16 @@ btnLoan.addEventListener('click', function (e) {
   const amount = +Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
-    // Add movement
-    currentAccount.movements.push(amount);
+    setTimeout(function () {
+      // Add movement
+      currentAccount.movements.push(amount);
 
-    // Add loan date
-    currentAccount.movementsDates.push(new Date().toISOString());
+      // Add loan date
+      currentAccount.movementsDates.push(new Date().toISOString());
 
-    // Update UI
-    updateUI(currentAccount);
+      // Update UI
+      updateUI(currentAccount);
+    }, 2500);
   }
   inputLoanAmount.value = '';
 });
@@ -317,6 +319,28 @@ btnSort.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 /////////////// LECTURES
 
+////////////////////////////// LECTURE: SETTIMEOUT AND SETINTERVAL
+
+// setTimeout
+const ingredients = ['olives', 'cheese'];
+const pizzaTimer = setTimeout(
+  (ing1, ing2) => console.log(`here is your pizza with ${ing1} and ${ing2}!`),
+  3000,
+  ...ingredients
+);
+console.log('waiting...');
+
+if (ingredients.includes('spinach')) clearTimeout(pizzaTimer);
+
+// setInterval
+setInterval(() => {
+  const now = new Date();
+  const hour = `${now.getHours()}`.padStart(2, 0);
+  const min = `${now.getMinutes()}`.padStart(2, 0);
+  const sec = `${now.getSeconds()}`.padStart(2, 0);
+  console.log(`${hour}:${min}:${sec}`);
+}, 5000);
+
 /*
 ////////////////////////////// LECTURE: INTERNATIONALIZING NUMBERS
 
@@ -335,7 +359,7 @@ console.log('Syria:', new Intl.NumberFormat('ar-SY', options).format(num));
 console.log('Japan:', new Intl.NumberFormat('ja-JP', options).format(num));
 console.log(
   'Browser:',
-  new Intl.NumberFormat(navigator.language, options).format(num)
+    new Intl.NumberFormat(navigator.language, options).format(num)
 );
 */
 
