@@ -47,7 +47,6 @@ console.log(allButtons);
 console.log(document.getElementsByClassName('btn'));
 
 // creating and inserting elements
-
 const message = document.createElement('div');
 message.classList.add('cookie-message');
 // message.textContent = 'We use cookies for improved functionality and analytics.';
@@ -60,8 +59,84 @@ header.append(message);
 // header.after(message);
 
 // delete elements
-
-document.querySelector('.btn--close-cookie').addEventListener('click', () => {
+document.querySelector('.btn--close--cookie').addEventListener('click', () => {
   // message.remove(); or L
   message.parentElement.removeChild(message);
+});
+
+/////////////////////////////////////// LECTURE: STYLES, ATTRIBUTES AND CLASSES
+
+// styles
+message.style.backgroundColor = '#37383d';
+message.style.width = '120%';
+
+console.log(message.style.color); // cant, cause we didnt defined this here in js
+console.log(getComputedStyle(message).color); // can, cause now im in the stylesheet of message
+
+message.style.height =
+  Number.parseFloat(getComputedStyle(message).height, 10) + 30 + 'px';
+
+// document.documentElement.style.setProperty('--color-primary', 'orangered'); // changing the root css styles
+// document.documentElement.style.setProperty('--color-primary', 'orangered'); // changing the root css styles
+
+// attributes
+const logo = document.querySelector('.nav__logo');
+console.log(logo.alt);
+console.log(logo.src);
+console.log(logo.className);
+
+logo.alt = 'Minimal logo';
+
+// non-standard
+console.log(logo.designer);
+console.log(logo.getAttribute('designer'));
+logo.setAttribute('company', 'Bankist'); // put attributes on tags, he gon do this to that images that are bluried
+
+console.log(logo.getAttribute('src'));
+
+const link = document.querySelector('.nav__link--btn');
+console.log(link.href); // returns url
+
+// data attributes
+console.log(logo.dataset.versionNumber);
+
+// classes - use
+logo.classList.add('c', 'j'); // course you can add multiple classnames
+logo.classList.remove('c', 'j');
+logo.classList.toggle('c');
+logo.classList.contains('c');
+
+// dont use
+logo.className = 'jonas'; // will overwrite all classes
+
+/////////////////////////////////////// LECTURE: SMOOTH SCROLLING
+
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', e => {
+  const s1coords = section1.getBoundingClientRect();
+  // console.log(s1coords);
+  // console.log(e.target.getBoundingClientRect());
+  // console.log('Current scroll (X/Y)', window.pageXOffset, window.pageYOffset);
+  // console.log(
+  //   'height/width of viewport',
+  //   document.documentElement.clientHeight
+  // ); // same to clientWidth
+
+  // scrolling
+  // window.scrollTo(
+  //   s1coords.left + window.pageXOffset,
+  //   s1coords.top + window.pageYOffset
+  // ); // go to rect of s1coords
+
+  //// first method
+  // window.scrollTo({
+  //   left: s1coords.left + window.pageXOffset,
+  //   top: s1coords.top + window.pageYOffset,
+  //   behavior: 'smooth',
+  // });
+
+  //// second method
+  section1.scrollIntoView({ behavior: 'smooth' });
 });
