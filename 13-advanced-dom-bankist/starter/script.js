@@ -140,3 +140,19 @@ btnScrollTo.addEventListener('click', e => {
   //// second method
   section1.scrollIntoView({ behavior: 'smooth' });
 });
+
+/////////////////////////////////////// LECTURE: TYPES OF EVENTS AND EVENT HANDLERS
+
+const h1 = document.querySelector('h1');
+
+const alertH1 = function (e) {
+  alert('addEventListener: Great! You are reading the heading.');
+};
+
+h1.addEventListener('mouseenter', alertH1);
+
+setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
+
+// h1.onclick = function (e) {
+//   alert('addEventListener: Great! You are reading the heading.');
+// };
