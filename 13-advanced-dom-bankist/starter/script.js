@@ -32,6 +32,31 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+/////////////////////////////////////// LECTURE: TABBED COMPONENT
+
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+tabsContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab');
+
+  // guard clause
+  if (!clicked) return;
+
+  // remove tab
+  tabs.forEach(t => t.classList.remove('operations__tab--active'));
+  tabsContent.forEach(c => c.classList.remove('operations__content--active'));
+
+  // activate tab
+  clicked.classList.add('operations__tab--active');
+
+  // activate main content area
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
+});
+
 /////////////////////////////////////// LECTURE: PAGE NAVIGATION
 
 // CAN DO THIS, BUT IF WE HAVE TOO MUCH ELEMENTS, DECREASES PERFORMANCE
@@ -226,7 +251,7 @@ document.querySelector('.nav').addEventListener('click', function (e) {
 /*
 /////////////////////////////////////// LECTURE: DOM TRAVERSING
 
-const h1 = document.querySelector('h1');
+const h1 = document.\aquerySelector('h1');
 
 // going downwards in DOM: children
 console.log(h1.querySelectorAll('.highlight'));
