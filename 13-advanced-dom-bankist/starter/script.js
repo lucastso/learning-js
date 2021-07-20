@@ -1,12 +1,14 @@
 'use strict';
 
-///////////////////////////////////////
-// Modal
-
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+
+///////////////////////////////////////
+// Modal
 
 const openModal = function (e) {
   e.preventDefault();
@@ -30,6 +32,68 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+/////////////////////////////////////// LECTURE: PAGE NAVIGATION
+
+// CAN DO THIS, BUT IF WE HAVE TOO MUCH ELEMENTS, DECREASES PERFORMANCE
+
+// document.querySelectorAll('.nav__link').forEach(function (el) {
+//   el.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const id = this.getAttribute('href');
+//     console.log(id);
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+// 1. Add event listener to common parent element
+// 2. Determine what element originated the event
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+  console.log(e.target);
+
+  // matching strategy
+  if (e.target.classList.contains('nav__link')) {
+    const id = e.target.getAttribute('href');
+    console.log(id);
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+/////////////////////////////////////// LECTURE: SMOOTH SCROLLING
+
+btnScrollTo.addEventListener('click', e => {
+  const s1coords = section1.getBoundingClientRect();
+  // console.log(s1coords);
+  // console.log(e.target.getBoundingClientRect());
+  // console.log('Current scroll (X/Y)', window.pageXOffset, window.pageYOffset);
+  // console.log(
+  //   'height/width of viewport',
+  //   document.documentElement.clientHeight
+  // ); // same to clientWidth
+
+  // scrolling
+  // window.scrollTo(
+  //   s1coords.left + window.pageXOffset,
+  //   s1coords.top + window.pageYOffset
+  // ); // go to rect of s1coords
+
+  //// first method
+  // window.scrollTo({
+  //   left: s1coords.left + window.pageXOffset,
+  //   top: s1coords.top + window.pageYOffset,
+  //   behavior: 'smooth',
+  // });
+
+  //// second method
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
+
+///////////////////////////////////////
+///////////////////////////////////////
+///////////////////////////////////////
+
+/*
 /////////////////////////////////////// LECTURE: SELECTING, CREATING AND DELETING ELEMENTS
 
 console.log(document.documentElement);
@@ -63,6 +127,7 @@ document.querySelector('.btn--close--cookie').addEventListener('click', () => {
   // message.remove(); or L
   message.parentElement.removeChild(message);
 });
+*/
 
 /*
 /////////////////////////////////////// LECTURE: STYLES, ATTRIBUTES AND CLASSES
@@ -111,38 +176,6 @@ logo.classList.contains('c');
 logo.className = 'jonas'; // will overwrite all classes
 */
 
-/////////////////////////////////////// LECTURE: SMOOTH SCROLLING
-
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
-
-btnScrollTo.addEventListener('click', e => {
-  const s1coords = section1.getBoundingClientRect();
-  // console.log(s1coords);
-  // console.log(e.target.getBoundingClientRect());
-  // console.log('Current scroll (X/Y)', window.pageXOffset, window.pageYOffset);
-  // console.log(
-  //   'height/width of viewport',
-  //   document.documentElement.clientHeight
-  // ); // same to clientWidth
-
-  // scrolling
-  // window.scrollTo(
-  //   s1coords.left + window.pageXOffset,
-  //   s1coords.top + window.pageYOffset
-  // ); // go to rect of s1coords
-
-  //// first method
-  // window.scrollTo({
-  //   left: s1coords.left + window.pageXOffset,
-  //   top: s1coords.top + window.pageYOffset,
-  //   behavior: 'smooth',
-  // });
-
-  //// second method
-  section1.scrollIntoView({ behavior: 'smooth' });
-});
-
 /*
 /////////////////////////////////////// LECTURE: TYPES OF EVENTS AND EVENT HANDLERS
 
@@ -161,6 +194,7 @@ setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
 // };
 */
 
+/*
 /////////////////////////////////////// LECTURE: EVENT PROPAGATION IN PRACTICE
 
 // rgb(255, 255, 255)
@@ -187,3 +221,4 @@ document.querySelector('.nav').addEventListener('click', function (e) {
   this.style.backgroundColor = randomColor();
   console.log('link3', e.target, e.currentTarget);
 });
+*/
