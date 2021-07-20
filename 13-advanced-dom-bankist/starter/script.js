@@ -222,3 +222,32 @@ document.querySelector('.nav').addEventListener('click', function (e) {
   console.log('link3', e.target, e.currentTarget);
 });
 */
+
+/////////////////////////////////////// LECTURE: DOM TRAVERSING
+
+const h1 = document.querySelector('h1');
+
+// going downwards in DOM: children
+console.log(h1.querySelectorAll('.highlight'));
+console.log(h1.childNodes);
+console.log(h1.children);
+setTimeout(() => (h1.firstElementChild.style.color = 'white'), 2000); // has secondElement
+
+// goind upwards: parents
+console.log(h1.parentNode);
+console.log(h1.parentElement);
+
+h1.closest('.header').style.background = 'var(--gradient-primary)';
+h1.closest('h1').style.background = 'var(--gradient-secondary)'; // exactly element itself
+
+// going sideways: siblings
+console.log(h1.previousElementSibling); // elements
+console.log(h1.nextElementSibling);
+
+console.log(h1.previousSibling); // nodes
+console.log(h1.nextSibling);
+
+console.log(h1.parentElement.children);
+[...h1.parentElement.children].forEach(function (el) {
+  if (el !== h1) el.style.transform = 'scale(0.5)';
+});
