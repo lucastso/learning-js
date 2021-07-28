@@ -36,6 +36,16 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+/////////////////////////////////////// LECTURE: IMPLEMENTING A STICKY NAVIGATION
+
+const initialCoords = section1.getBoundingClientRect();
+
+window.addEventListener('scroll', function () {
+  console.log(window.scrollY);
+  if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+});
+
 /////////////////////////////////////// LECTURE: PASSING ARGUMENTS TO EVENT HANDLERS
 // menu fade animation
 
