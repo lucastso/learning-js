@@ -36,15 +36,98 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+/////////////////////////////////////// LECTURE: LAZY LOADING IMAGES
+
+const imgTargets = document.querySelectorAll('img[data-src]');
+console.log(imgTargets);
+
+const loadImg = (entries, observer) => {
+  const [entry] = entries;
+  console.log(entry);
+
+  if (!entry.isIntersecting) return;
+  // replace src with data-src
+  entry.target.src = entry.target.dataset.src;
+  entry.target.addEventListener('load', () => {
+    entry.target.classList.remove('lazy-img');
+  });
+
+  observer.unobserve(entry.target);
+};
+
+const imgObserver = new IntersectionObserver(loadImg, {
+  root: null,
+  threshold: 0,
+  rootMargin: '200px',
+});
+
+imgTargets.forEach(img => imgObserver.observe(img));
+
+/////////////////////////////////////// LECTURE: REVEALING ELEMENTS ON SCROLL
+
+const allSections = document.querySelectorAll('.section');
+
+const revealSection = (entries, observer) => {
+  const [entry] = entries;
+
+  if (!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden');
+  observer.unobserve(entry.target);
+};
+
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.2,
+});
+
+allSections.forEach(section => {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+});
+
+/////////////////////////////////////// LECTURE: INTERSECTION OBSERVER API
+
+// const obsCallback = function (entries, observer) {
+//   entries.forEach(entry => {
+//     console.log(entry);
+//   });
+// };
+
+// const obsOptions = {
+//   root: null,
+//   threshold: [0, 0.2],
+// };
+
+// const observer = new IntersectionObserver(obsCallback, obsOptions);
+// observer.observe(section1);
+
+const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height;
+
+const stickyNav = entries => {
+  const [entry] = entries;
+  console.log(entry);
+
+  if (!entry.isIntersecting) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`,
+});
+headerObserver.observe(header);
+
 /////////////////////////////////////// LECTURE: IMPLEMENTING A STICKY NAVIGATION
 
-const initialCoords = section1.getBoundingClientRect();
+// const initialCoords = section1.getBoundingClientRect();
 
-window.addEventListener('scroll', function () {
-  console.log(window.scrollY);
-  if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
-  else nav.classList.remove('sticky');
-});
+// window.addEventListener('scroll', function () {
+//   console.log(window.scrollY);
+//   if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
+//   else nav.classList.remove('sticky');
+// });
 
 /////////////////////////////////////// LECTURE: PASSING ARGUMENTS TO EVENT HANDLERS
 // menu fade animation
